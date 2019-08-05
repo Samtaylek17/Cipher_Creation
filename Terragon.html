@@ -1,85 +1,39 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>zkTutorials</title>
+		<title>Terragon Challenge</title>
 	</head>
 	<body>
-		<input placeholder="Type something" id="myinput">
-		<button onclick="encrypt()">Encrypt</button>
-		<button onclick="decrypt()">Decrypt</button>
-		<div id="result"></div>
 		<script>
-			const encrypt = () => {
-				let rawtext = document.querySelector("#myinput").value;
-				let temptext = "";
-				for(i = 0; i < rawtext.length; i++) {
-					temptext += enc(rawtext[i]);
+			//Caesar Cipher
+
+			const caesarCipher = (str, num) => {
+				let lowerCaseStr = str.toLowerCase();
+				let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+				let newStr = '';
+
+				for (let i = 0; i < lowerCaseStr.length; i++) {
+					let currentLetter = lowerCaseStr[i];
+					if(currentLetter === ' ') {
+						newStr += currentLetter;
+						continue;
+					}
+					let currentIndex = alphabet.indexOf(currentLetter);
+					let newIndex = currentIndex + num;
+					if(newIndex > 25) newIndex = newIndex - 26;
+					if(newIndex < 0) newIndex = 26 + newIndex;
+					if(str[i] === str[i].toUpperCase()) {
+						newStr += alphabet[newIndex].toUpperCase();
+					}
+					else {
+						newStr += alphabet[newIndex];
+					}
 				}
-				document.querySelector('#result').textContent = temptext;
+				return newStr;
 			}
-			const decrypt = () => {
-				let rawtext = document.querySelector("#myinput").value;
-				let temptext = "";
-				for(i = 0; i < rawtext.length; i++){
-					temptext += dec(rawtext[i]);
-				}
-				document.querySelector("#result").textContent = temptext;
-			}
-			const enc = (x) => {
-				switch(x){
-					case "a" :
-						return ".";
-						break;
-					case "b" :
-						return "0";
-						break;
-					case "c" :
-						return "_";
-						break;
-					case "d" :
-						return "=";
-						break;
-					case "e" : 
-						return "+";
-						break;
-					case "f" :
-						return "-";
-						break;
-					case "g" :
-						return ":";
-						break;
-					case "h" : 
-						return "$";
-						break;
-				}
-			}
-			const dec = (x) => {
-				switch(x){
-					case "." :
-						return "a";
-						break;
-					case "0" :
-						return "b";
-						break;
-					case  "_":
-						return "c";
-						break;
-					case  "=":
-						return "d";
-						break;
-					case "+" :
-						return "e";
-						break;
-					case "-" :
-						return "f";
-						break;
-					case ":" :
-						return "g";
-						break;
-					case "$" :
-						return "h";
-				}
-			}
+		console.log(caesarCipher('QEB NRFZH YOLTK CLU GRJMP LSBO QEB IXWV ALD', 3));
+
+
 		</script>
 	</body>
 </html>
